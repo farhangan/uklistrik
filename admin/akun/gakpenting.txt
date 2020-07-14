@@ -1,0 +1,103 @@
+if(isset($_POST['admin'])){
+$id_admin = $_POST['id_admin'];
+$username = $_POST['username'];
+$password = md5($_POST['password']);
+$nama_admin = $_POST['nama_admin'];
+$level = $_POST['level'];
+
+if($akun->tambah_admin($id_admin,$nama_admin,$username,$password,$level)){
+?>
+<script>
+alert('Data Berhasil Disimpan');
+document.location = '?page=Akun';
+</script>
+<?php
+}else{
+?>
+<script>
+alert('Data Gagal Disimpan');
+document.location = '?page=Akun';
+</script>
+<?php
+}
+}
+<div class="card mb-3">
+<div class="card-header">
+Akun Admin
+</div>
+<div class="card-body">
+<table class="table table-bordered" id="akun">
+<thead>
+<tr>
+<th>Id Admin</th>
+<th>Nama Admin</th>
+<th>Username</th>
+<th>Level</th>
+<th>
+<button class="btn btn-outline-success" data-toggle="modal" data-target="#TambahAdmin"><span class="fa fa-plus-circle fa-spin"></span> Tambah Data</button>
+</th>
+</tr>
+</thead>
+<tbody>
+<?php foreach ($data as $row) { ?>
+<tr>
+<td><?= $row['id_admin']; ?></td>
+<td><?= $row['nama_admin']; ?></td>
+<td><?= $row['username']; ?></td>
+<td><?= $row['level']; ?></td>
+<td>
+<!-- <a class="btn btn-danger text-light font-weight-bold">
+<span class="fa fa-trash-alt"></span> Hapus
+</a> -->
+</td>
+</tr>
+<?php } ?>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- Tambah Admin -->
+<div class="modal fade" id="TambahAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLabel">Tambah Admin</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+<form method="post">
+<div class="form-group">
+<label for=""><span class="fa fa-code">	</span> Id Admin</label>
+<input type="text" name="id_admin" value="<?= $codeAdmin ?>" class="form-control" readonly>
+</div>
+<div class="form-group">
+<label for=""><span class="fa fa-user"></span> Username</label>
+<input type="text" name="username" class="form-control" placeholder="Username">
+</div>
+<div class="form-group">
+<label for=""><span class="fa fa-key"></span> Password</label>
+<input type="password" class="form-control" name="password" placeholder="Password">
+</div>
+<div class="form-group">
+<label for=""><span class="fa fa-id-card"></span>Nama Admin</label>
+<input type="text" name="nama_admin" class="form-control" placeholder="Nama Admin">
+</div>
+<div class="form-group">
+<label for="">Level</label>
+<select name="level" class="form-control" readonly>
+<option value="admin">Admin</option>
+</select>
+</div>
+
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+<button type="submit" name="admin" class="btn btn-primary">Save changes</button>
+</form>
+</div>
+</div>
+</div>
+</div>
